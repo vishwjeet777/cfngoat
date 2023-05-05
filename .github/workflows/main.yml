@@ -1,0 +1,21 @@
+name:cpsp-workshp
+on:
+push:
+branches:
+- master
+jobs:
+scan:
+runs-on: ubuntu-latest
+strategy:
+matrix:
+python-version: [3.8]
+steps:
+-name: check repo
+uses: actions/checkout@v2
+-name: run bridgecrew
+id: bridgecrew
+uses: bridgecrewio/bridgecrew-action@master
+env:
+PRISMA_API_URL: HTTPS://api3.prismacloud.io
+with:
+api-key:${{secrets.BC_API_KEY}}
